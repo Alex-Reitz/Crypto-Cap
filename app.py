@@ -1,11 +1,11 @@
-from flask import Flask, url_for, render_template, redirect, flash, jsonify
+from flask import Flask, url_for, render_template, redirect, flash, jsonify, session
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "abcdef"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///capCoin"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 connect_db(app)
