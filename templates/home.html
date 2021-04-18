@@ -2,6 +2,34 @@
 
 {% block content %}
 
-<h1>Welcome to the home page</h1>
-<script src="/static/home.js"></script>
+<div class="container">
+    <br>
+    <br>
+    <h1>Cryptocurrency Ranking by Market Cap</h1>
+    <table class="table">
+       <thead class="thead-dark">
+         <tr>
+           <th scope="col">Cryto Name</th>
+           <th scope="col">Symbol</th>
+           <th scope="col">Slug</th>
+           <th scope="col">Price</th>
+           <th scope="col">Market Cap</th>
+         </tr>
+       </thead>
+
+       <tbody>
+
+         {% for obj in output %}
+         <tr>
+           <td>{{obj.name}}</td>
+           <td>{{obj.symbol}}</td>
+           <td>{{obj.slug}}</td>
+           <td>{{obj.quote.USD.price}}</td>
+           <td>{{obj.quote.USD.market_cap}}</td>
+         </tr>
+         {% endfor %}
+
+       </tbody>
+      </table>
+  </div>
 {% endblock %}

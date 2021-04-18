@@ -1,9 +1,14 @@
+import os
+
 from flask import Flask, url_for, render_template, redirect, flash, jsonify, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
-
 from models import db, connect_db, User, Favorites, Cryptos
+from dotenv import load_dotenv
+
+from api import Crypto
+crypto = Crypto()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_ECHO'] = False
@@ -19,6 +24,7 @@ db.create_all()
 
 toolbar = DebugToolbarExtension(app)
 
+#_____BEFORE EACH REQUEST_____#
 @app.before_request
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global"""
@@ -35,11 +41,7 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-@app.route("/")
-def home_page():
-    """Show Homepage"""
-    return render_template("home.html")
-
+#_____Authentication/Authorization Routes_____#
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """New User Signup Functionality"""
@@ -93,3 +95,13 @@ def logout():
 
     flash("You have successfully logged out.", 'success')
     return redirect("/login")
+
+#_____HOME PAGE____#
+@app.route("/")
+def home_page():
+    """Show Homepage with top 25 cryptos by market cap"""
+    output = crypto.get_top_25()
+    for result in output:
+        result['quote']['USD']['price'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['price'])
+        result['quote']['USD']['market_cap'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
+    return render_template('home.html', **locals())
