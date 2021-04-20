@@ -91,7 +91,7 @@ class Favorites(db.Model):
 
 class Cryptos(db.Model):
     """A table for the top 100 cryptos"""
-    __tablename__='cryptos'
+    __tablename__='crypto'
 
     id = db.Column(
         db.Integer,

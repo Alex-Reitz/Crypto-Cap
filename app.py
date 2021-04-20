@@ -71,13 +71,10 @@ def signup():
 @app.route('/login', methods=["GET", "POST"])
 def login():
     """Login Functionality"""
-
     form = LoginForm()
-
     if form.validate_on_submit():
         user = User.authenticate(form.username.data,
                                  form.password.data)
-
         if user:
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
@@ -105,3 +102,18 @@ def home_page():
         result['quote']['USD']['price'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['price'])
         result['quote']['USD']['market_cap'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
     return render_template('home.html', **locals())
+
+#_____Page for specific Cryptos_____#
+""" @app.route("/crypto/<int:crypto_id>", methods=["GET"])
+def show_specific_crypto(crypto_id):
+    output = crypto.get_crypto(<int:id>)
+    return render_template("crypto.html", **locals())
+ """
+
+#Route for when a User clicks on their name in nav bar
+@app.route('/users/<int:user_id>')
+def users_show(user_id):
+    """Show user profile, likes"""
+    user = User.query.get_or_404(user.id)
+    favorites = [favorite.id for favorite in user.favorites]
+    return render_template('show_profile.html', user=user)

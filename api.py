@@ -7,8 +7,8 @@ import json
 api_key = os.environ.get("API_KEY")
 
 class Crypto:
-  """Get the top 25 cryptos by market cap"""
     def get_top_25(self):
+        """Top 25 cryptos"""
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         parameters = {
           'start':'1',
@@ -28,10 +28,12 @@ class Crypto:
         return data['data'] 
 
     def get_crypto(self):
-      """Get a specific crypto"""
+        """Get an individual crypto"""
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         parameters = {
-          
+          'start':'9',
+          'limit': '9',
+          'convert': 'USD'
         }
         headers = {
           'Accepts': 'application/json',
@@ -43,5 +45,5 @@ class Crypto:
 
         response = session.get(url, params=parameters)
         data = json.loads(response.text)
-        return 
+        return data['data']
     

@@ -133,4 +133,9 @@ body {
   }
   
   
-  
+  /* Home page */
+  .heading{
+    display: flex;
+    justify-content: center;
+  }
+

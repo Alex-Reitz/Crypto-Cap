@@ -32,6 +32,12 @@
           {{ g.user.username }}
         </a>
       </li>
+      <li>
+        <a href="/users/{{ g.user.favorites }}">
+          Favorites
+          {{ g.user.favorites }}
+        </a>
+      </li>
       <li><a href="/logout">Log out</a></li>
       {% endif %}
     </ul>

@@ -3,25 +3,26 @@
 {% block content %}
 
 <div class="container">
-    <br>
-    <br>
-    <h1>Cryptocurrency Ranking by Market Cap</h1>
-    <table class="table">
+    <h1 class="heading">Cryptocurrency Ranking by Market Cap</h1>
+    <table class="table table-striped table-bordered">
        <thead class="thead-dark">
-         <tr>
-           <th scope="col">Cryto Name</th>
-           <th scope="col">Symbol</th>
-           <th scope="col">Slug</th>
-           <th scope="col">Price</th>
-           <th scope="col">Market Cap</th>
-         </tr>
-       </thead>
-
+        <tr>
+          <th scope="col">Crypto Name</th>
+          <th scope="col">Symbol</th>
+          <th scope="col">Slug</th>
+          <th scope="col">Price</th>
+          <th scope="col">Market Cap</th>
+        </tr>
+      </thead>
        <tbody>
-
          {% for obj in output %}
          <tr>
-           <td>{{obj.name}}</td>
+           <td>
+            <a href="/{{obj.name}}" >
+              <button type="button" class="btn btn-link">{{obj.name}}</button>
+           </a> 
+            <button class="btn favorite"><i class="far fa-star" aria-hidden="true"></i></i></button>
+          </td>
            <td>{{obj.symbol}}</td>
            <td>{{obj.slug}}</td>
            <td>{{obj.quote.USD.price}}</td>
@@ -31,5 +32,6 @@
 
        </tbody>
       </table>
+      <script src="/static/home.js"></script>
   </div>
 {% endblock %}
