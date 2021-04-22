@@ -12,27 +12,15 @@ class User(db.Model):
 
     __tablename__ = 'users'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-    )
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Text, nullable=False,unique=True)
+    username = db.Column(db.Text, nullable=False, unique=True)
+    password = db.Column(db.Text, nullable=False)
 
-    email = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
+    favorites = db.relationship("Favorites")
 
-    username = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
-    password = db.Column(
-        db.Text,
-        nullable=False,
-    )
+    def __repr__(self):
+        return f"<User #{self.id}: {self.username}, {self.email}>"
 
     @classmethod
     def signup(cls, username, email, password):
@@ -70,39 +58,12 @@ class User(db.Model):
 
 
 class Favorites(db.Model):
-    """A junction table for the many-to-many relationship between users and their favorite cryptos"""
+    """A table to store the favorite IDs after User stars a crypto"""
     __tablename__ = 'favorites'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    user_id = db.Column(
-        db.Integer,
-        db.ForeignKey('users.id', ondelete='cascade')
-    )
-
-    crypto_id = db.Column(
-        db.Integer,
-        db.ForeignKey('cryptos.id', ondelete='cascade')
-    )
-
-
-class Cryptos(db.Model):
-    """A table for the top 100 cryptos"""
-    __tablename__='crypto'
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    crypto_name = db.Column(
-        db.Text,
-        unique=True,
-        nullable=False
-    )
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
+    cmc_id = db.Column(db.Integer, nullable=False)
 
 def connect_db(app):
     db.app = app

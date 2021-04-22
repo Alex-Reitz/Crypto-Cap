@@ -29,11 +29,9 @@ class Crypto:
 
     def get_crypto(self):
         """Get an individual crypto"""
-        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
         parameters = {
-          'start':'9',
-          'limit': '9',
-          'convert': 'USD'
+          'id': '1'
         }
         headers = {
           'Accepts': 'application/json',

@@ -4,7 +4,7 @@ from flask import Flask, url_for, render_template, redirect, flash, jsonify, ses
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
-from models import db, connect_db, User, Favorites, Cryptos
+from models import db, connect_db, User, Favorites
 from dotenv import load_dotenv
 
 from api import Crypto
@@ -12,7 +12,7 @@ crypto = Crypto()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['SECRET_KEY'] = "abcdef"
+app.config['SECRET_KEY'] = "secret_key"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///capCoin"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,7 +24,7 @@ db.create_all()
 
 toolbar = DebugToolbarExtension(app)
 
-#_____BEFORE EACH REQUEST_____#
+#Before each request
 @app.before_request
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global"""
@@ -41,7 +41,7 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-#_____Authentication/Authorization Routes_____#
+#Authentication/Authorization Routes
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """New User Signup Functionality"""
@@ -93,27 +93,53 @@ def logout():
     flash("You have successfully logged out.", 'success')
     return redirect("/login")
 
-#_____HOME PAGE____#
+#Home page
 @app.route("/")
 def home_page():
     """Show Homepage with top 25 cryptos by market cap"""
     output = crypto.get_top_25()
+    
     for result in output:
         result['quote']['USD']['price'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['price'])
         result['quote']['USD']['market_cap'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
+    
     return render_template('home.html', **locals())
 
-#_____Page for specific Cryptos_____#
-""" @app.route("/crypto/<int:crypto_id>", methods=["GET"])
-def show_specific_crypto(crypto_id):
-    output = crypto.get_crypto(<int:id>)
+#Route for specific crypto in top 25
+@app.route("/crypto", methods=["GET"])
+def show_specific_crypto():
+    output = crypto.get_crypto()
+
     return render_template("crypto.html", **locals())
- """
+ 
 
 #Route for when a User clicks on their name in nav bar
-@app.route('/users/<int:user_id>')
-def users_show(user_id):
-    """Show user profile, likes"""
-    user = User.query.get_or_404(user.id)
-    favorites = [favorite.id for favorite in user.favorites]
-    return render_template('show_profile.html', user=user)
+@app.route('/users/<int:user_id>', methods=["GET", "POST"])
+def show_user_profile(user_id):
+    """Show a User's profile"""
+    if not g.user:
+        flash("Please login", "danger")
+        redirect("/")
+    user = User.query.get_or_404(user_id)
+    return render_template('show_profile.html', user=user, favorites=user.favorites)
+
+#----------
+#Favorites
+#----------
+
+#API endpoint for adding a favorite
+@app.route("/api/add_favorite", methods=["POST"])
+def add_favorite():
+    output = crypto.get_crypto()
+    return output
+    
+
+#Show user favorites
+@app.route("/users/<int:user_id>/favorites")
+def show_favorites():
+    if not g.user:
+        flash("Please login", "danger")
+        redirect("/")
+    return render_template('favorites.html')
+
+
