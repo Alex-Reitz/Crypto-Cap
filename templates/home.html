@@ -20,8 +20,9 @@
          <tr>
            <td>{{obj.cmc_rank}}</td>
            <td>
-            <a href="/crypto/{{obj.name}}" >
-              <button type="button" class="btn btn-link">{{obj.name}}</button>
+            <a href={{url_for(obj.name)}}">
+
+              <button id={{obj.id}} type="button" class="btn btn-link">{{obj.name}}</button>
            </a> 
             <button class="btn favorite"><i id={{obj.id}} class="far fa-star" aria-hidden="true"></i></i></button>
           </td>
@@ -31,7 +32,6 @@
            <td>{{obj.quote.USD.market_cap}}</td>
          </tr>
          {% endfor %}
-
        </tbody>
       </table>
       <script src="/static/home.js"></script>

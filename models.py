@@ -16,7 +16,6 @@ class User(db.Model):
     email = db.Column(db.Text, nullable=False,unique=True)
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
-
     favorites = db.relationship("Favorites")
 
     def __repr__(self):
@@ -64,6 +63,16 @@ class Favorites(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
     cmc_id = db.Column(db.Integer, nullable=False)
+
+    
+    """ @classmethod
+    def add_favorite(cls, user_id, cmc_id):
+        favorite=Favorites(
+            user_id=user_id
+            cmc_id=cmc_id
+        )
+        db.session.add(favorite)
+        return favorite """
 
 def connect_db(app):
     db.app = app

@@ -1,14 +1,17 @@
 import os
-
-from flask import Flask, url_for, render_template, redirect, flash, jsonify, session, g
+import requests
+import json
+from requests import Request, Session
+from requests.auth import HTTPBasicAuth
+from flask import Flask, url_for, render_template, redirect, flash, jsonify, session, g, request
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
 from models import db, connect_db, User, Favorites
-from dotenv import load_dotenv
 
 from api import Crypto
 crypto = Crypto()
+api_key = os.environ.get("API_KEY")
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_ECHO'] = False
@@ -105,13 +108,12 @@ def home_page():
     
     return render_template('home.html', **locals())
 
+#Syntax: url_for('name of the function of the route','parameters (if required)')
 #Route for specific crypto in top 25
-@app.route("/crypto", methods=["GET"])
-def show_specific_crypto():
-    output = crypto.get_crypto()
-
-    return render_template("crypto.html", **locals())
- 
+@app.route("/api/get_crypto_info", methods=["GET", "POST"])
+def show_specific_crypto(id):
+    return id
+    
 
 #Route for when a User clicks on their name in nav bar
 @app.route('/users/<int:user_id>', methods=["GET", "POST"])
@@ -130,16 +132,32 @@ def show_user_profile(user_id):
 #API endpoint for adding a favorite
 @app.route("/api/add_favorite", methods=["POST"])
 def add_favorite():
-    output = crypto.get_crypto()
-    return output
+    cmc_id = request.json["id"]
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
+    headers = {
+          'Accepts': 'application/json',
+          'X-CMC_PRO_API_KEY': api_key,
+        }
+    parameters = {
+          'id': cmc_id
+        }
+    session = Session()
+    session.headers.update(headers)
+    response = session.get(url, headers=headers, params=parameters)
+    print(response)
+    data = json.loads(response.text)
+    crypto_id = data['data'][cmc_id]["id"]
+    print(crypto_id)
+    return data['data'][cmc_id]
     
 
 #Show user favorites
-@app.route("/users/<int:user_id>/favorites")
-def show_favorites():
+@app.route("/users/<int:user_id>/<user_favorites>", methods=["GET", "POST"])
+def show_favorites(user_id, user_favorites):
     if not g.user:
         flash("Please login", "danger")
         redirect("/")
-    return render_template('favorites.html')
+    user = User.query.get_or_404(user_id)
+    return render_template('favorites.html', user=user, favorites=user.favorites)
 
 

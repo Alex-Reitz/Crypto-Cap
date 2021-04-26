@@ -11,3 +11,16 @@ $('.fa-star').click(function() {
     addFavorite()
   })
 
+   $('.btn-link').click(function(evt){
+    console.log(this);
+    id = this.id
+    async function display_crypto_page(){
+      let response = await axios.post(`/api/get_crypto_info`, {
+        id
+      })
+      console.log("Got", response);
+      return response
+    }
+    display_crypto_page()
+  })
+ 
