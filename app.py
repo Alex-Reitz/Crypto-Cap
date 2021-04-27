@@ -110,10 +110,29 @@ def home_page():
 
 #Syntax: url_for('name of the function of the route','parameters (if required)')
 #Route for specific crypto in top 25
-@app.route("/api/get_crypto_info", methods=["GET", "POST"])
-def show_specific_crypto(id):
-    return id
-    
+@app.route('/crypto/<string:name>/<int:id>', methods=['GET'])
+def get_crypto_id(name,id):
+    return render_template('crypto.html', name=name, id=id)
+
+@app.route("/api/load_info", methods=["POST"])
+def load_info():
+    cmc_id = request.json["id"]
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
+    headers = {
+          'Accepts': 'application/json',
+          'X-CMC_PRO_API_KEY': api_key,
+        }
+    parameters = {
+          'id': cmc_id
+        }
+    session = Session()
+    session.headers.update(headers)
+    response = session.get(url, headers=headers, params=parameters)
+    print(response)
+    data = json.loads(response.text)
+    crypto_id = data['data'][cmc_id]["id"]
+    print(crypto_id)
+    return data['data'][cmc_id]
 
 #Route for when a User clicks on their name in nav bar
 @app.route('/users/<int:user_id>', methods=["GET", "POST"])

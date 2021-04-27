@@ -20,8 +20,7 @@
          <tr>
            <td>{{obj.cmc_rank}}</td>
            <td>
-            <a href={{url_for(obj.name)}}">
-
+            <a href="{{ url_for('get_crypto_id', name=obj.name, id=obj.id)}}">
               <button id={{obj.id}} type="button" class="btn btn-link">{{obj.name}}</button>
            </a> 
             <button class="btn favorite"><i id={{obj.id}} class="far fa-star" aria-hidden="true"></i></i></button>

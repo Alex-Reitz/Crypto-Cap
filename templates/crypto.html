@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Page for specific cryptos</h1>
+<h1>{{name}}</h1>
+<div id="information">
+    <h6 id="description"></h6>
+    <h6 id="date_added">Date added to CMC: </h6>
+</div>
+
+<script src="/static/crypto.js"></script>
 {% endblock %}
