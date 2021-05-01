@@ -128,10 +128,8 @@ def load_info():
     session = Session()
     session.headers.update(headers)
     response = session.get(url, headers=headers, params=parameters)
-    print(response)
     data = json.loads(response.text)
     crypto_id = data['data'][cmc_id]["id"]
-    print(crypto_id)
     return data['data'][cmc_id]
 
 #Route for when a User clicks on their name in nav bar
@@ -148,18 +146,29 @@ def show_user_profile(user_id):
 #Favorites
 #----------
 
-#API endpoint for adding a favorite, selected = fa-star fas non-selected = far fa-star
-@app.route("/api/toggle_favorite", methods=["POST"])
+#API endpoint for toggling a favorite, selected = fa-star fas non-selected = far fa-star
+@app.route("/api/toggle_favorite", methods=["GET", "POST"])
 def toggle_favorite():
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/")
     cmc_id = request.json["id"]
-    #this = request.json["selected"]
-
-    favorited_crypto = Favorites.query.get_or_404(cmc_id)
-    user_favorites = f.user.favorites
-    favorite = Favorites(user_id=g.user.id, cmc_id=cmc_id)
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
+    headers = {
+          'Accepts': 'application/json',
+          'X-CMC_PRO_API_KEY': api_key,
+        }
+    parameters = {
+          'id': cmc_id
+        }
+    session = Session()
+    session.headers.update(headers)
+    response = session.get(url, headers=headers, params=parameters)
+    data = json.loads(response.text)
+    favorited_crypto = data['data'][cmc_id]['name']
+    print('........................', favorited_crypto)
+    user_favorites = g.user.favorites
+    favorite = Favorites(user_id=g.user.id, crypto_favorite_name=favorited_crypto)
 
     if favorite in user_favorites:
         g.user.favorites = [favorite for favorite in user_favorites if favorite != favorited_crypto]
