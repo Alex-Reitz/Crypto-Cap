@@ -6,8 +6,14 @@ $(document).ready(function() {
         id
       });
       console.log("Got", response);
+      $("#logo").attr({ "src": response.data.logo });
       $('#description').append(response.data.description)
       $('#date_added').append(response.data.date_added)
+      $('#cmc_id').append(response.data.id)
+      $('#slug').append(response.data.slug)
+      $('#symbol').append(response.data.symbol)
+      $('#twitter_username').append(response.data.twitter_username)
+      $('#reddit_username').append(response.data.subreddit)
       return response
     } 
 

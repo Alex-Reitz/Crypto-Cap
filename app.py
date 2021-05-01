@@ -148,26 +148,27 @@ def show_user_profile(user_id):
 #Favorites
 #----------
 
-#API endpoint for adding a favorite
-@app.route("/api/add_favorite", methods=["POST"])
-def add_favorite():
+#API endpoint for adding a favorite, selected = fa-star fas non-selected = far fa-star
+@app.route("/api/toggle_favorite", methods=["POST"])
+def toggle_favorite():
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
     cmc_id = request.json["id"]
-    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
-    headers = {
-          'Accepts': 'application/json',
-          'X-CMC_PRO_API_KEY': api_key,
-        }
-    parameters = {
-          'id': cmc_id
-        }
-    session = Session()
-    session.headers.update(headers)
-    response = session.get(url, headers=headers, params=parameters)
-    print(response)
-    data = json.loads(response.text)
-    crypto_id = data['data'][cmc_id]["id"]
-    print(crypto_id)
-    return data['data'][cmc_id]
+    #this = request.json["selected"]
+
+    favorited_crypto = Favorites.query.get_or_404(cmc_id)
+    user_favorites = f.user.favorites
+    favorite = Favorites(user_id=g.user.id, cmc_id=cmc_id)
+
+    if favorite in user_favorites:
+        g.user.favorites = [favorite for favorite in user_favorites if favorite != favorited_crypto]
+    else:
+        g.user.favorites.append(favorited_crypto)
+
+    db.session.add(favorited_crypto)
+    db.session.commit()
+    return "Successfully toggled favorite"
     
 
 #Show user favorites
