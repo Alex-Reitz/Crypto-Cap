@@ -1,5 +1,5 @@
 
-# Crypto Market Cap :coin🪙:
+# Crypto Market Cap
 
 This project allows users to monitor metrics for the top 25 most popular cryptocurrencies.
 
