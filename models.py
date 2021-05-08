@@ -16,7 +16,7 @@ class User(db.Model):
     email = db.Column(db.Text, nullable=False,unique=True)
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
-    favorites = db.relationship("Favorites")
+    favorites = db.Column(db.ARRAY(db.String(120)))
 
     def __repr__(self):
         return f"<User #{self.id}: {self.username}, {self.email}>"
@@ -55,14 +55,6 @@ class User(db.Model):
 
         return False
 
-
-class Favorites(db.Model):
-    """A table to store the favorite IDs after User stars a crypto"""
-    __tablename__ = 'favorites'
-
-    id = db.Column(db.Integer,primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
-    crypto_favorite_name = db.Column(db.Text, nullable=False)
 
 def connect_db(app):
     db.app = app

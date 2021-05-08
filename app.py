@@ -7,7 +7,7 @@ from flask import Flask, url_for, render_template, redirect, flash, jsonify, ses
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
-from models import db, connect_db, User, Favorites
+from models import db, connect_db, User
 
 from api import Crypto
 crypto = Crypto()
@@ -167,15 +167,10 @@ def toggle_favorite():
     data = json.loads(response.text)
     favorited_crypto = data['data'][cmc_id]['name']
     print('........................', favorited_crypto)
-    user_favorites = g.user.favorites
-    favorite = Favorites(user_id=g.user.id, crypto_favorite_name=favorited_crypto)
-
-    if favorite in user_favorites:
-        g.user.favorites = [favorite for favorite in user_favorites if favorite != favorited_crypto]
-    else:
-        g.user.favorites.append(favorited_crypto)
-
-    db.session.add(favorited_crypto)
+    user_username = g.user.username
+    print(user_username)
+    print(g.user.favorites)
+    
     db.session.commit()
     return "Successfully toggled favorite"
     
