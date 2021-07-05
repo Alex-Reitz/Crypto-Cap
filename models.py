@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from sqlalchemy.ext.mutable import MutableList
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -16,7 +17,7 @@ class User(db.Model):
     email = db.Column(db.Text, nullable=False,unique=True)
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
-    favorites = db.Column(db.ARRAY(db.String(120)))
+    favorites = db.Column(MutableList.as_mutable(db.ARRAY(db.String(120))), server_default="{}")
 
     def __repr__(self):
         return f"<User #{self.id}: {self.username}, {self.email}>"

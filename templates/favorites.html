@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>User Favorites</h1>
-{{user.favorites}}
+<div class="main">
+    <h1>Your Favorites</h1>
+    <ul>
+        {% for favorite in favorites %}
+        <li>{{favorite}}</li>
+    {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}

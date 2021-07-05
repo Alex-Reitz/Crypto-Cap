@@ -166,11 +166,13 @@ def toggle_favorite():
     response = session.get(url, headers=headers, params=parameters)
     data = json.loads(response.text)
     favorited_crypto = data['data'][cmc_id]['name']
-    print('........................', favorited_crypto)
-    user_username = g.user.username
-    print(user_username)
-    print(g.user.favorites)
-    
+    user_id = g.user.id
+    user_info = User.query.get(user_id)
+    user_faves = g.user.favorites
+    if favorited_crypto in user_faves:
+        g.user.favorites = [favorite for favorite in user_faves if favorite != favorited_crypto]
+    else:
+        user_info.favorites.append(favorited_crypto)
     db.session.commit()
     return "Successfully toggled favorite"
     

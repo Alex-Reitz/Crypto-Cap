@@ -1,4 +1,12 @@
 /* ====================== General */
+.main{
+  text-align: center;
+  content: center;
+}
+.main ul {
+  text-align: center;
+  list-style: inside;
+}
 
 body {
     background-color: #e6ecf0;

@@ -22,18 +22,6 @@ CREATE TABLE "User" (
     )
 );
 
-CREATE TABLE "Favorites" (
-    "FavoriteID" int   NOT NULL,
-    "CMC_ID" int   NOT NULL,
-    "UserID" int   NOT NULL,
-    CONSTRAINT "pk_Favorites" PRIMARY KEY (
-        "FavoriteID"
-     ),
-    CONSTRAINT "uc_Favorites_CMC_ID" UNIQUE (
-        "CMC_ID"
-    )
-);
-
 ALTER TABLE "Favorites" ADD CONSTRAINT "fk_Favorites_UserID" FOREIGN KEY("UserID")
 REFERENCES "User" ("UserID");
 
