@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="top">
-    <h1>{{name}}</h1>
-    <img id="logo" src="" alt="logo" />
-</div>
-<div id="information">
-    <h6 id="date_added">Date added to Coin Market Cap: </h6>
-    <h6 id="cmc_id">Coin Market Cap ID: </h6>
-    <p id="description"></p>
-    <p id="slug">Official Slug: </p>
-    <p id="symbol">Official Symbol: </p>
-    <p id="twitter_username">Twitter Handle: @</p>
-    <p id="reddit_username">Subreddit URL: /r/</p>
-</div>
+<link rel="stylesheet" href="/static/stylesheets/crypto.css">
+<body>
+    <div class="crypto-info">
+        <div class="top">
+            <img id="logo" alt="logo" /> <h1 id="crypto-name">{{name}}</h1>
+            
+        </div>
+        <div class="information" id="information">
+            <hr>
+            <p id="description"></p>
+            <hr>
+            <div class="extra-info">
+                <li id="slug"><strong>Official Slug: </strong></li>
+                <li id="symbol"><strong>Official Symbol:</strong> </li>
+                <li id="twitter_username"><strong>Twitter Handle: @</strong></li>
+                <li id="reddit_username"><strong>Subreddit URL: /r/</strong></li>
+            </div>
+            <hr>
+            <div class="footer">
+                <h6 id="date_added">Date added to Coin Market Cap: </h6>
+                <h6 id="cmc_id">Coin Market Cap ID: </h6>
+            </div>
+           
+        </div>
+    </div>
+</body>
 
 <script src="/static/crypto.js"></script>
 {% endblock %}

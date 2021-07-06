@@ -1,6 +1,7 @@
 $(document).ready(function() {
     test = $(location).attr('pathname');
     id = test.substring(test.lastIndexOf('/') + 1);
+    
     async function load_crypto_information() { 
       let response = await axios.post(`/api/load_info`, { 
         id
