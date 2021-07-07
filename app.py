@@ -140,7 +140,9 @@ def show_user_profile(user_id):
         flash("Please login", "danger")
         redirect("/")
     user = User.query.get_or_404(user_id)
-    return render_template('show_profile.html', user=user, favorites=user.favorites)
+    user_faves = g.user.favorites
+    
+    return render_template('show_profile.html', user=user, favorites=user_faves)
 
 #----------
 #Favorites

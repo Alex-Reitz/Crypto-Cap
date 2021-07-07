@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Your profile information</h1>
-<h6>Your Username: {{ user.username }}</h6>
-<h6>The email for this account: {{user.email}}</h6>
-<h6>Your favorites: {{user.favorites}}</h6>
+<link rel="stylesheet" href="/static/stylesheets/profile.css">
+<body>
+    <div class="profile-info">
+        <h1>Your Profile Information</h1>
+        <hr>
+        <p>Your Username: <strong>{{user.username}}</strong></p>
+        <p>The email for this account: <strong>{{user.email}}</strong></p>
+        <hr>
+        <h6 class="favorites">Your favorites:</h6>
+        <ul>
+            {% for favorite in favorites %}
+            <strong>{{favorite}}</strong>
+            <br />
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
 {% endblock %}
