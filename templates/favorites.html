@@ -2,12 +2,34 @@
 
 {% block content %}
 <div class="main">
-    <h1>Your Favorites</h1>
-    <ul>
-        {% for favorite in favorites %}
-        <li>{{favorite}}</li>
-    {% endfor %}
-    </ul>
+    <div class="container">
+        <h1 class="heading">Your Favorites</h1>
+        <table class="table table-striped table-bordered">
+           <thead class="table-dark">
+            <tr>
+              <th class="col-header" scope="col">ID</th>
+              <th class="col-header" scope="col">Crypto Name</th>
+              <th class="col-header" scope="col">Symbol</th> 
+              <th class="col-header" scope="col">Slug</th>
+              <th class="col-header" scope="col">Description</th>
+            </tr>
+          </thead>
+           <tbody>
+            {% for favorite in newData %}
+            
+            <tr>
+              <td class="table-data">{{favorite.id}}</td>
+              <td class="table-data">{{favorite.name}}</td>
+              <td class="table-data">{{favorite.symbol}}</td>
+              <td class="table-data">{{favorite.slug}}</td>
+              <td class="table-data">{{favorite.description}}</td>
+            </tr>
+            {% endfor %}
+           
+            
+           </tbody>
+          </table>
+      </div>
 </div>
 
 {% endblock %}

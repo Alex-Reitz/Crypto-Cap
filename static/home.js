@@ -7,7 +7,7 @@ $('.fa-star').click(function() {
       });
       console.log("Got", response);
       return response
-    } 
+    }  
     addFavorite()
   })
 

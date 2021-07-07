@@ -1,4 +1,4 @@
-/* ====================== General */
+/* General */
 .main{
   text-align: center;
   content: center;
@@ -27,8 +27,24 @@ body {
   .btn:hover {
     cursor: pointer;
   }
-  
-  /* ======================= Nav */
+
+  /* Home Page */
+  .col-header{
+    text-align: center;
+  }
+  .btn{
+    padding: 0;
+    margin: 0;
+
+  }
+  .favorite{
+    padding:0;
+    margin: 0;
+  }
+  .table-data{
+    text-align: center;
+  }
+  /* Navbar */
   
   .navbar {
     background-color: #fff;
@@ -40,7 +56,7 @@ body {
   }
   
   .navbar a {
-    color: #66757f;
+    color: black;
     font-size: 13px;
     font-weight: bold;
   }
@@ -90,7 +106,7 @@ body {
   nav + .container {
     margin-bottom: 1rem;
   }
-  /* ============================ Signed out home */
+  /* Signed out home */
   
   .home-hero {
     height: 100vh;
@@ -132,14 +148,13 @@ body {
     background: rgba(255, 255, 255, 0.3);
   }
   
-  /* ========================== Signup/Login */
+  /* Signup/Login */
   
   #user_form input.form-control {
     font-size: 18px;
     font-weight: bold;
     padding: 12px;
   }
-  
   
   /* Home page */
   .heading{

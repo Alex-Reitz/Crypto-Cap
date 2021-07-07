@@ -165,7 +165,7 @@ def toggle_favorite():
     session.headers.update(headers)
     response = session.get(url, headers=headers, params=parameters)
     data = json.loads(response.text)
-    favorited_crypto = data['data'][cmc_id]['name']
+    favorited_crypto = data['data'][cmc_id]['slug']
     user_id = g.user.id
     user_info = User.query.get(user_id)
     user_faves = g.user.favorites
@@ -178,12 +178,28 @@ def toggle_favorite():
     
 
 #Show user favorites
-@app.route("/users/<int:user_id>/<user_favorites>", methods=["GET", "POST"])
-def show_favorites(user_id, user_favorites):
+@app.route("/users/<int:user_id>/favorites", methods=["GET", "POST"])
+def show_favorites(user_id):
     if not g.user:
         flash("Please login", "danger")
         redirect("/")
     user = User.query.get_or_404(user_id)
-    return render_template('favorites.html', user=user, favorites=user.favorites)
+    user_faves = g.user.favorites
+    fav_string = ",".join(str(x) for x in user_faves)
+    print(fav_string)
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
+    headers = {
+          'Accepts': 'application/json',
+          'X-CMC_PRO_API_KEY': api_key,
+        }
+    parameters = {
+        'slug': fav_string
+        }
+    session = Session()
+    session.headers.update(headers)
+    response = session.get(url, headers=headers, params=parameters)
+    data = json.loads(response.text)
+    newData = (data['data'].values())
+    return render_template('favorites.html', newData=newData)
 
 
