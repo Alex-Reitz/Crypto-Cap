@@ -11,4 +11,8 @@ $('.fa-star').click(function() {
     addFavorite()
   })
 
+  //Check for favorites, on page load, get favorites list, cmc_ids from backend
+  //Iterate over list rendered onto page and change class to 'fas far' - dark 
+ 
+
  

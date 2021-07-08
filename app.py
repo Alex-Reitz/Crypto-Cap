@@ -103,10 +103,14 @@ def home_page():
     output = crypto.get_top_25()
     
     for result in output:
-        result['quote']['USD']['price'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['price'])
-        result['quote']['USD']['market_cap'] = '$ ' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
-    
-    return render_template('home.html', **locals())
+        result['quote']['USD']['price'] = '$' + "{:,.2f}".format(result['quote']['USD']['price'])
+        result['quote']['USD']['market_cap'] = '$' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
+    user_faves = g.user.favorites
+    for result in output:
+        if result['slug'] in user_faves:
+            print("This is the result", result['slug'])
+            result["favorite"] = True
+    return render_template('home.html', output=output, user_faves=user_faves)
 
 #Syntax: url_for('name of the function of the route','parameters (if required)')
 #Route for specific crypto in top 25
@@ -176,7 +180,7 @@ def toggle_favorite():
     else:
         user_info.favorites.append(favorited_crypto)
     db.session.commit()
-    return "Successfully toggled favorite"
+    return "toggled"
     
 
 #Show user favorites
@@ -188,7 +192,7 @@ def show_favorites(user_id):
     user = User.query.get_or_404(user_id)
     user_faves = g.user.favorites
     fav_string = ",".join(str(x) for x in user_faves)
-    print(fav_string)
+    
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
     headers = {
           'Accepts': 'application/json',
