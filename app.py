@@ -100,12 +100,16 @@ def logout():
 @app.route("/")
 def home_page():
     """Show Homepage with top 25 cryptos by market cap"""
+    if g.user:
+        user_faves = g.user.favorites
+    else:
+        user_faves = [];
     output = crypto.get_top_25()
     
     for result in output:
         result['quote']['USD']['price'] = '$' + "{:,.2f}".format(result['quote']['USD']['price'])
         result['quote']['USD']['market_cap'] = '$' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
-    user_faves = g.user.favorites
+    
     for result in output:
         if result['slug'] in user_faves:
             print("This is the result", result['slug'])
@@ -205,7 +209,12 @@ def show_favorites(user_id):
     session.headers.update(headers)
     response = session.get(url, headers=headers, params=parameters)
     data = json.loads(response.text)
-    newData = (data['data'].values())
+    if len(g.user.favorites) == 0:
+        print(len(g.user.favorites))
+        newData = [];
+        print("Empty list here", newData)
+    else:    
+        newData = (data['data'].values())
     return render_template('favorites.html', newData=newData)
 
 

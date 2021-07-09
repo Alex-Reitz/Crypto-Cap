@@ -33,8 +33,8 @@ body {
     text-align: center;
   }
   .btn{
-    padding: 0;
-    margin: 0;
+    padding: 7px;
+    margin: 0px;
 
   }
   .favorite{
@@ -44,6 +44,12 @@ body {
   .table-data{
     text-align: center;
   }
+.join-message{
+  text-align: center;
+}
+#user_form {
+  text-align: center;
+}
   /* Navbar */
   
   .navbar {
@@ -162,4 +168,7 @@ body {
     justify-content: center;
   }
 
- 
+ .container-heading{
+   display: block;
+   text-align: center;
+ }
