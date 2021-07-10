@@ -104,16 +104,20 @@ def home_page():
         user_faves = g.user.favorites
     else:
         user_faves = [];
-    output = crypto.get_top_25()
+    output = crypto.get_top_200()
     
     for result in output:
         result['quote']['USD']['price'] = '$' + "{:,.2f}".format(result['quote']['USD']['price'])
         result['quote']['USD']['market_cap'] = '$' + "{:,.2f}".format(result['quote']['USD']['market_cap'])
-    
+        result['total_supply'] = "{:,.0f}".format(result['total_supply'])
     for result in output:
         if result['slug'] in user_faves:
-            print("This is the result", result['slug'])
             result["favorite"] = True
+    
+    """ Output looks like this {'id': 1, 'name': 'Bitcoin', 'symbol': 'BTC', 'slug': 'bitcoin', 'num_market_pairs': 9030, 'date_added': '2013-04-28T00:00:00.000Z', 
+    'tags': ['mineable', 'pow', 'sha-256', 'store-of-value', 'state-channels', 'coinbase-ventures-portfolio', 'three-arrows-capital-portfolio', 'polychain-capital-portfolio', 'binance-labs-portfolio', 'arrington-xrp-capital', 'blockchain-capital-portfolio', 'boostvc-portfolio', 'cms-holdings-portfolio', 'dcg-portfolio', 'dragonfly-capital-portfolio', 'electric-capital-portfolio', 'fabric-ventures-portfolio', 'framework-ventures', 'galaxy-digital-portfolio', 'huobi-capital', 'alameda-research-portfolio', 'a16z-portfolio', '1confirmation-portfolio', 'winklevoss-capital', 'usv-portfolio', 'placeholder-ventures-portfolio', 'pantera-capital-portfolio', 'multicoin-capital-portfolio', 'paradigm-xzy-screener'], 
+    'max_supply': 21000000, 'circulating_supply': 18752037, 'total_supply': 18752037, 'platform': None, 'cmc_rank': 1, 'last_updated': '2021-07-09T21:58:02.000Z', 
+    'quote': {'USD': {'price': '$33,879.96', 'volume_24h': 27204317563.446537, 'percent_change_1h': 1.07943697, 'percent_change_24h': 3.53574286, 'percent_change_7d': 1.09199452, 'percent_change_30d': -7.66137093, 'percent_change_60d': -39.27195248, 'percent_change_90d': -42.63507675, 'market_cap': '$635,318,247,111.33', 'last_updated': '2021-07-09T21:58:02.000Z'}}, 'favorite': True} """
     return render_template('home.html', output=output, user_faves=user_faves)
 
 #Syntax: url_for('name of the function of the route','parameters (if required)')
@@ -132,7 +136,7 @@ def load_info():
         }
     parameters = {
           'id': cmc_id
-        }
+    }
     session = Session()
     session.headers.update(headers)
     response = session.get(url, headers=headers, params=parameters)
@@ -210,11 +214,12 @@ def show_favorites(user_id):
     response = session.get(url, headers=headers, params=parameters)
     data = json.loads(response.text)
     if len(g.user.favorites) == 0:
-        print(len(g.user.favorites))
         newData = [];
-        print("Empty list here", newData)
     else:    
-        newData = (data['data'].values())
+        newData = data['data'].values()
+    for result in newData:
+        if result['slug'] in user_faves:
+            result["favorite"] = True
     return render_template('favorites.html', newData=newData)
 
 

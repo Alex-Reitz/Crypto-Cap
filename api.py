@@ -7,12 +7,12 @@ import json
 api_key = os.environ.get("API_KEY")
 
 class Crypto:
-    def get_top_25(self):
+    def get_top_200(self):
         """Top 25 cryptos"""
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         parameters = {
           'start':'1',
-          'limit':'25',
+          'limit':'200',
           'convert':'USD'
         }
         headers = {

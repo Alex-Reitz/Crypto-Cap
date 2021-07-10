@@ -32,10 +32,13 @@ body {
   .col-header{
     text-align: center;
   }
-  .btn{
+  .btn-primary {
     padding: 7px;
     margin: 0px;
-
+  }
+  .btn-link{
+    padding: 0;
+    margin: 0;
   }
   .favorite{
     padding:0;

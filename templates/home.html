@@ -13,6 +13,7 @@
           <th class="col-header" scope="col">Slug</th>
           <th class="col-header" scope="col">Price</th>
           <th class="col-header" scope="col">Market Cap</th>
+          <th class="col-header" scope="col">Total Supply</th>
         </tr>
       </thead>
        <tbody>
@@ -33,6 +34,7 @@
            <td class="table-data">{{obj.slug}}</td>
            <td class="table-data">{{obj.quote.USD.price}}</td>
            <td class="table-data">{{obj.quote.USD.market_cap}}</td>
+           <td class="table-data">{{obj.total_supply}}</td>
          </tr>
          {% endfor %}
        </tbody>

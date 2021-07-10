@@ -6,7 +6,6 @@ $(document).ready(function() {
       let response = await axios.post(`/api/load_info`, { 
         id
       });
-      console.log("Got", response);
       $("#logo").attr({ "src": response.data.logo });
       $('#description').append(response.data.description)
       $('#date_added').append(response.data.date_added)
@@ -19,5 +18,6 @@ $(document).ready(function() {
     } 
 
     load_crypto_information()
+    
 });
 
