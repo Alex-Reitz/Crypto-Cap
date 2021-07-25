@@ -1,25 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block body_class %}User Signup{% endblock %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/signup.css') }}">
 
-{% block body_class %}User Signup{% endblock %}
+<div class="row justify-content-md-center ">
+    <div class="col-md-7 col-lg-5 ">
+        <h2 class="join-message">Join Crypto Cap Today</h2>
+        <form method="POST" id="user_form">
+            {{ form.hidden_tag() }} {% for field in form if field.widget.input_type != 'hidden' %} {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span> {% endfor %} {{ field(placeholder=field.label.text, class="form-control") }} {% endfor %}
+            <div class="col">
+                <button class="btn">Sign Up</button>
+            </div>
+        </form>
 
-{% block content %}
-
-  <div class="row justify-content-md-center">
-  <div class="col-md-7 col-lg-5">
-    <h2 class="join-message">Join Crypto Cap Today!</h2>
-    <form method="POST" id="user_form">
-      {{ form.hidden_tag() }}
-
-      {% for field in form if field.widget.input_type != 'hidden' %}
-        {% for error in field.errors %}
-          <span class="text-danger">{{ error }}</span>
-        {% endfor %}
-        {{ field(placeholder=field.label.text, class="form-control") }}
-      {% endfor %}
-
-      <button class="btn btn-primary btn-lg btn-block">Sign up</button>
-    </form>
-  </div>
+    </div>
 </div>
 
 {% endblock %}

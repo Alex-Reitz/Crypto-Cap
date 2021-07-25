@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/home.css') }}">{% if not g.user %}
 <div class=" home-content-unauth ">
-    <h1 class="welcome-heading ">Welcome to Crypto Cap, please sign up or login</h1>
+    <h1 class="welcome-heading ">Welcome to Crypto Cap</h1>
+    <h6 class="welcome-message">please sign up or login</h6>
     <div class="button-div">
         <a href="/signup "><button class="btn-home-page ">Sign up</button></a>
         <a href="/login "><button class="btn-home-page ">Log in</button></a>
@@ -9,7 +10,7 @@
 </div>
 {% else %}
 <div class="container ">
-    <h1 class="heading ">Cryptocurrency Ranking by Market Cap</h1>
+    <h1 class="home-heading ">Cryptocurrency Ranking by Market Cap</h1>
     <table class="table table-striped table-bordered ">
         <thead class="table-dark ">
             <tr>

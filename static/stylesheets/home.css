@@ -11,10 +11,24 @@
     justify-content: center;
 }
 
+.home-heading {
+    font-size: 2em;
+    padding: 10px;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+}
+
 .welcome-heading {
     font-size: 1.5em;
     padding: 10px;
     text-transform: capitalize;
+}
+
+.welcome-message {
+    font-size: 1em;
+    text-transform: capitalize;
+    text-align: center;
 }
 
 .btn-home-page {
@@ -29,10 +43,42 @@
     font-size: 1rem;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #316685;
+    background-color: skyblue;
     border: none;
+}
+
+.btn-home-page:hover {
+    background-color: lightblue;
 }
 
 a {
     text-decoration: none;
+}
+
+.col-header {
+    text-align: center;
+}
+
+.btn-primary {
+    padding: 7px;
+    margin: 0px;
+}
+
+.btn-link {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+.favorite {
+    padding: 0;
+    margin: 0;
+}
+
+.table-data {
+    text-align: center;
+}
+
+#user_form {
+    text-align: center;
 }
