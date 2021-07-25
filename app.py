@@ -1,9 +1,8 @@
 import os
-import requests
 import json
 from requests import Request, Session
 from requests.auth import HTTPBasicAuth
-from flask import Flask, url_for, render_template, redirect, flash, jsonify, session, g, request
+from flask import Flask, render_template, redirect, flash, jsonify, session, g, request
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
@@ -11,9 +10,10 @@ from models import db, connect_db, User
 
 from api import Crypto
 crypto = Crypto()
-api_key = os.environ.get("API_KEY")
+api_key = os.environ.get("API_KEY", 'dev')
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = "secret_key"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
@@ -102,7 +102,7 @@ def home_page():
     """Show Homepage with top 25 cryptos by market cap"""
     if g.user:
         user_faves = g.user.favorites
-    else:
+    else: 
         user_faves = [];
     output = crypto.get_top_200()
     

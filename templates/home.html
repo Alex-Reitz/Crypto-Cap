@@ -1,44 +1,48 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<div class="container">
-    <h1 class="heading">Cryptocurrency Ranking by Market Cap</h1>
-    <table class="table table-striped table-bordered">
-       <thead class="table-dark">
-        <tr>
-          <th class="col-header" scope="col">Rank</th>
-          <th class="col-header" scope="col">Crypto Name</th>
-          <th class="col-header" scope="col">Symbol</th> 
-          <th class="col-header" scope="col">Slug</th>
-          <th class="col-header" scope="col">Price</th>
-          <th class="col-header" scope="col">Market Cap</th>
-          <th class="col-header" scope="col">Total Supply</th>
-        </tr>
-      </thead>
-       <tbody>
-         {% for obj in output %}
-         <tr>
-           <td class="table-data">{{obj.cmc_rank}}</td>
-           <td class="table-data">
-             {% if not obj.favorite %}
-              <button class="btn favorite"><i id={{obj.id}} class="far fa-star" aria-hidden="true"></i></button>
-             {% else %}
-             <button class="btn favorite"><i id={{obj.id}} class="fa-star fas" aria-hidden="true"></i></button>
-             {% endif %}
-            <a href="{{ url_for('get_crypto_id', name=obj.name, id=obj.id)}}">
-              <button id={{obj.id}} type="button" class="btn btn-link">{{obj.name}}</button>
-           </a> 
-          </td>
-           <td class="table-data">{{obj.symbol}}</td>
-           <td class="table-data">{{obj.slug}}</td>
-           <td class="table-data">{{obj.quote.USD.price}}</td>
-           <td class="table-data">{{obj.quote.USD.market_cap}}</td>
-           <td class="table-data">{{obj.total_supply}}</td>
-         </tr>
-         {% endfor %}
-       </tbody>
-      </table>
-      <script src="/static/home.js"></script>
-  </div>
-{% endblock %}
+{% extends 'base.html' %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/home.css') }}">{% if not g.user %}
+<div class=" home-content-unauth ">
+    <h1 class="welcome-heading ">Welcome to Crypto Cap, please sign up or login</h1>
+    <div class="button-div">
+        <a href="/signup "><button class="btn-home-page ">Sign up</button></a>
+        <a href="/login "><button class="btn-home-page ">Log in</button></a>
+    </div>
+</div>
+{% else %}
+<div class="container ">
+    <h1 class="heading ">Cryptocurrency Ranking by Market Cap</h1>
+    <table class="table table-striped table-bordered ">
+        <thead class="table-dark ">
+            <tr>
+                <th class="col-header " scope="col ">Rank</th>
+                <th class="col-header " scope="col ">Crypto Name</th>
+                <th class="col-header " scope="col ">Symbol</th>
+                <th class="col-header " scope="col ">Slug</th>
+                <th class="col-header " scope="col ">Price</th>
+                <th class="col-header " scope="col ">Market Cap</th>
+                <th class="col-header " scope="col ">Total Supply</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in output %}
+            <tr>
+                <td class="table-data ">{{obj.cmc_rank}}</td>
+                <td class="table-data ">
+                    {% if not obj.favorite %}
+                    <button class="btn favorite "><i id={{obj.id}} class="far fa-star " aria-hidden="true "></i></button> {% else %}
+                    <button class="btn favorite "><i id={{obj.id}} class="fa-star fas " aria-hidden="true "></i></button> {% endif %}
+                    <a href="{{ url_for( 'get_crypto_id', name=obj.name, id=obj.id)}} ">
+                        <button id={{obj.id}} type="button " class="btn btn-link ">{{obj.name}}</button>
+                    </a>
+                </td>
+                <td class="table-data ">{{obj.symbol}}</td>
+                <td class="table-data ">{{obj.slug}}</td>
+                <td class="table-data ">{{obj.quote.USD.price}}</td>
+                <td class="table-data ">{{obj.quote.USD.market_cap}}</td>
+                <td class="table-data ">{{obj.total_supply}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script src="/static/home.js "></script>
+</div>
+{% endif %} {% endblock %}

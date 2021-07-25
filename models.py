@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy.ext.mutable import MutableList
 
-db = SQLAlchemy()
+db = SQLAlchemy() 
 bcrypt = Bcrypt()
 
 
