@@ -1,5 +1,5 @@
 
-# Crypto Market Cap
+# Crypto Cap
 
 This project allows users to monitor metrics for the top 25 most popular cryptocurrencies.
 
@@ -7,6 +7,6 @@ It educates users about various cryptocurrencies, allows users to add favorites,
 
 This project uses Python, Flask, Axios, SQL-Alchemy, CSS, Jinga-templates, and HTML. 
 
-CSS Bootstrap was used to make everything smooth and presentable. 
+Bootstrap was used to make everything smooth and presentable. 
 
 Please enjoy clicking around, making your own profile, and add your own favorites!
