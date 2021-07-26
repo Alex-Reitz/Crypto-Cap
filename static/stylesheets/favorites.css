@@ -1,0 +1,33 @@
+.favorites-heading {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.col-header {
+    text-align: center;
+}
+
+.btn-primary {
+    padding: 7px;
+    margin: 0px;
+}
+
+.btn-link {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+.favorite {
+    padding: 0;
+    margin: 0;
+}
+
+.table-data {
+    text-align: center;
+}

@@ -35,3 +35,7 @@
     font-weight: bold;
     padding: 12px;
 }
+
+.form-control {
+    margin-bottom: 20px;
+}

@@ -1,17 +1,16 @@
 /* Navbar */
 
 .navbar {
-    background-color: #fff;
-    height: 46px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: #212529;
+    height: 50px;
     margin-bottom: 1rem;
     position: relative;
     z-index: 9999;
 }
 
 .navbar a {
-    color: black;
-    font-size: 13px;
+    color: white;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -35,17 +34,9 @@ nav form.navbar-form {
     }
 }
 
-nav+.container {
-    margin-bottom: 1rem;
-}
-
 
 /* General */
 
 body {
     background-color: #e6ecf0;
-}
-
-.form-control {
-    margin-bottom: 20px;
 }

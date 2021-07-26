@@ -1,51 +1,46 @@
-{% extends 'base.html' %}
-
-{% block content %}
-{% if newData == [] %}
+{% extends 'base.html' %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/favorites.css') }}"> {% if newData == [] %}
 <div class="container-heading">
-  <h3>You don't have any favorites</h3>
-  <br />
-  <p>Click the star on the home page to add favorites.</p>
+    <h3>You don't have any favorites</h3>
+    <br />
+    <p>Click the star on the home page to add favorites.</p>
 </div>
 {% else %}
 <div class="main">
-  <div class="container">
-      <h1 class="heading">Your Favorites</h1>
-      <table class="table table-striped table-bordered">
-         <thead class="table-dark">
-          <tr>
-            <th style="width:7%" class="col-header" scope="col">CMC ID</th>
-            <th style="width:15%" class="col-header" scope="col">Crypto Name</th>
-            <th class="col-header" scope="col">Symbol</th> 
-            <th class="col-header" scope="col">Slug</th>
-            <th class="col-header" scope="col">Description</th>
-          </tr>
-        </thead>
-         <tbody>
-          {% for favorite in newData %}
-          <tr>
-            <td class="table-data">{{favorite.id}}</td>
-            <td class="table-data">
-              {% if newData.favorite == True %}
-              <button class="btn favorite"><i id={{favorite.id}} class="far fa-star" aria-hidden="true"></i></button>
-             {% else %}
-             <button class="btn favorite"><i id={{favorite.id}} class="fa-star fas" aria-hidden="true"></i></button>
-             {% endif %}
-            <a href="{{ url_for('get_crypto_id', name=favorite.name, id=favorite.id)}}">
-              <button id={{favorite.id}} type="button" class="btn btn-link">{{favorite.name}}</button>
-           </a> 
-            </td>
-            <td class="table-data">{{favorite.symbol}}</td>
-            <td class="table-data">{{favorite.slug}}</td>
-            <td class="table-data">{{favorite.description}}</td>
-          </tr>
-          {% endfor %}
-         
-          
-         </tbody>
+    <div class="container">
+        <h1 class="favorites-heading">Your Favorites</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width:7%" class="col-header" scope="col">CMC ID</th>
+                    <th style="width:15%" class="col-header" scope="col">Crypto Name</th>
+                    <th class="col-header" scope="col">Symbol</th>
+                    <th class="col-header" scope="col">Slug</th>
+                    <th class="col-header" scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for favorite in newData %}
+                <tr>
+                    <td class="table-data">{{favorite.id}}</td>
+                    <td class="table-data">
+                        {% if newData.favorite == True %}
+                        <button class="btn favorite"><i id={{favorite.id}} class="far fa-star" aria-hidden="true"></i></button> {% else %}
+                        <button class="btn favorite"><i id={{favorite.id}} class="fa-star fas" aria-hidden="true"></i></button> {% endif %}
+                        <a href="{{ url_for('get_crypto_id', name=favorite.name, id=favorite.id)}}">
+                            <button id={{favorite.id}} type="button" class="btn btn-link">{{favorite.name}}</button>
+                        </a>
+                    </td>
+                    <td class="table-data">{{favorite.symbol}}</td>
+                    <td class="table-data">{{favorite.slug}}</td>
+                    <td class="table-data">{{favorite.description}}</td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
         </table>
     </div>
     <script src="/static/favorites.js"></script>
 </div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

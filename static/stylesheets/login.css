@@ -34,3 +34,7 @@
     display: flex;
     justify-content: center;
 }
+
+.form-control {
+    margin-bottom: 20px;
+}
