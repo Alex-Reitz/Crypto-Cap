@@ -1,4 +1,41 @@
 
+<div align='center'>
+  <h1>Crypto Cap </h1>
+</div>
+
+<br />
+
+---
+<br />
+
+<div align="center">
+
+**[PROJECT PHILOSOPHY](https://github.com/Alex-Reitz/Crypto-Cap#-project-philosophy) • 
+[TECH STACK](https://github.com/Alex-Reitz/Crypto-Cap#-tech-stack) •  
+</div>
+
+<br />
+
+# 🧐 Project philosophy
+
+> Crypto Cap is an app where users can signup or login and view data on hundreds of cryptocurrencies listed on the coin market cap API. 
+> 
+> Users can favorite cryptos and view in depth information on individual cryptos.
+
+
+# 👨‍💻 Tech stack
+
+Here's a brief high-level overview of the tech stack the app uses:
+
+- This project uses the [Flask Framework](https://flask.palletsprojects.com/en/2.0.x/). Flask is a web framework, it’s a Python module that lets you develop web applications easily. It’s has a small and easy-to-extend core: it’s a microframework that doesn’t include an ORM (Object Relational Mapping) or such features.
+- For persistent storage (database), the app uses [PostgreSQL](https://www.postgresql.org/) which allows the app to create a custom storage schema and save it to a local database.
+- For the front end the app uses jinga templates which inherit from a single base template. Additionally the project uses twitter bootstrap for dynamic rendering of data.
+<br />
+
+---
+
+<br />
+
 # Crypto Cap
 
 This project allows users to monitor metrics for the top 200 most popular cryptocurrencies.
