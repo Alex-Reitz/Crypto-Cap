@@ -3,11 +3,6 @@
   <h1>Crypto Cap </h1>
 </div>
 
-<br />
-
----
-<br />
-
 <div align="center">
 
 **[PROJECT PHILOSOPHY](https://github.com/Alex-Reitz/Crypto-Cap#-project-philosophy) • 
