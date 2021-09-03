@@ -11,7 +11,7 @@
 <div align="center">
 
 **[PROJECT PHILOSOPHY](https://github.com/Alex-Reitz/Crypto-Cap#-project-philosophy) • 
-[TECH STACK](https://github.com/Alex-Reitz/Crypto-Cap#-tech-stack) • **
+[TECH STACK](https://github.com/Alex-Reitz/Crypto-Cap#-tech-stack)**
 </div>
 
 <br />
