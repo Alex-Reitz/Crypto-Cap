@@ -1,6 +1,7 @@
 
 <div align='center'>
   <h1>Crypto Cap </h1>
+  <img width="1772" alt="CryotoCap" src="https://user-images.githubusercontent.com/25966709/132071951-a715f692-34f5-4822-a4f6-12da13892620.png">
 </div>
 
 <div align="center">
