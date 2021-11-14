@@ -1,8 +1,7 @@
 import os
 import json
-from requests import Request, Session
-from requests.auth import HTTPBasicAuth
-from flask import Flask, render_template, redirect, flash, jsonify, session, g, request
+from requests import Session
+from flask import Flask, render_template, redirect, flash, session, g, request
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm
@@ -11,13 +10,13 @@ from models import db, connect_db, User
 from api import Crypto
 crypto = Crypto()
 api_key = os.environ.get("API_KEY", 'dev')
+DATABASE_URL = os.environ.get("DATABASE_URL", 'dev')
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = "secret_key"
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///capCoin"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 CURR_USER_KEY = "curr_user"
@@ -25,7 +24,6 @@ CURR_USER_KEY = "curr_user"
 connect_db(app)
 db.create_all()
 
-toolbar = DebugToolbarExtension(app)
 
 #Before each request
 @app.before_request
